@@ -36,4 +36,59 @@ HTML5是HTML和XHTML的新版本。在HTML5草案的规范中定义了可以用H
 我们会对照W3C校验器测试我们的标记，以确保标记是结构良好的。我们的目标并不是100%的合法代码，但是校验肯定对呀编写可维护的站点以及调试代码都大有帮助。Isobar公司不保证代码都是100%合法，而是确信跨浏览器体验会相当一致。
 
 ###模板
-对呀HTML5文件，我们使用H5BP针对我们自己项目需求修改的一个分支。
+对HTML5文件，我们使用H5BP针对我们自己项目需求修改的一个分支。
+
+###Doctype
+标记中必须总是使用合适的Doctype来指示浏览器触发标准模式，永远要避免Quirks模式。
+
+HTML5特别好的一个方面就是它简化了Doctype需要的代码。无意义的属性被弃用了，Doctype声明也被显著地简化了。另外，也无需再用CDATA对内联JavaScript代码进行转义，而这在此之前为了让XHTML符合XML的严密性是必需的。
+
+HTML5 Doctype
+
+    <DOCTYPE html>
+    
+###字符编码
+所有标记必须通过UTF-8编码传递，因为这种编码方式是对国际化最友好的。必须在HTTP的header和HTML文档的head部分都指定这种编码。
+
+设定字符编码是通过`<meta>`标签进行。
+
+    <meta http-equiv="Content-Type" content="test/html; charset=UTF-8" />
+
+如果是HTML5，则只需要写：
+
+    <meta charset="utf-8">
+
+###标记的总体原则
+下面是编写HTML标记的总体原则。提醒大家一点，在创建的HTML文档里总是要使用能够代表内容语义的标记。
+
+* 段落分隔符要使用实际对应的`<p>`元素，而不是多个`<br>`标签。
+* 在合适的条件下，充分利用`<dl>`(定义列表)和`<blockquote>`标签。
+* 列表中的条目必须总是放置于`<ul>`、`<ol>`、`<dl>`中，永远不要用一组`<div>`和`<p>`来表示。
+* 给每个表单里的字段加上`<label>`标签，其中的`for`属性必须和对应的输入字段对应，这样用户就可以点击标签。同理，给标签加上`cursor:pointer;`样式也是明智的做法。
+* 不用使用输入字段中的`size`属性。该属性是和输入字段里文本的`font-size`相关的。应该使用CSS宽度。
+* 在某些闭合的`</div>`标签旁边加上一段html注释，说明这里闭合的是什么元素。这在有大量嵌套和缩进的情况下会很有用。
+* 不要把表格用于页面布局。
+* 在合适的条件下，利用`microformats`和`/`或者`Microdata`，具体说是`hCard`和`adr`。
+* 在合适的条件下，利用`<thead>`、`<tbody>`、`<th>`标签（以及`Scope`属性）。
+
+具备恰当语法结构(THEAD,TBODY,TH[scope])的Table标记
+
+    <table summary="This is a chart of year-end returns for 2005.">
+      <thead>
+        <tr>
+          <th scope="col">Table header 1</th>
+          <th scope="col">Table header 2</th>
+        </tr>
+      <thead>
+      <tbody>
+        <tr>
+          <td>Table data 1></td>
+          <td>Table data 2</td>
+        </tr>
+      </tbody>
+    </table>
+    
+* 对于页眉和标题，永远使用首字母大写格式。不要在标记中使用全部大写或小写的标题，而是应用CSS属性`text-transform:uppercase/lowercase`。
+
+###属性加引号
+在HTML规范里并没有严格要求属性值两边加引号。但考虑到一些属性可以接受空白值，为了保持一致性，我们要求所有属性值必须加上引号。
